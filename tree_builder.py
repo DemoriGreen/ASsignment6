@@ -130,29 +130,10 @@ if __name__ == "__main__":
 
 
 # DESIGN MEMO (200–300 words)
-# Recursive insertion works by checking the current employee node to see whether
-# that person is the requested manager. If the names match, the method checks the
-# selected side and creates a new EmployeeNode only when that branch is empty.
-# Otherwise, it calls itself on the left and right children. Each recursive call
-# examines a smaller part of the company directory, so the search moves down the
-# hierarchy until it finds the manager or reaches the end of the available paths.
-# The root is used as the starting point for the first call.
-#
-# One challenge was handling an empty child without confusing it with the initial
-# call. The method uses current_node=None to signal that the search should begin
-# at the root, while recursive calls pass a specific child node. Another challenge
-# was preventing employees from overwriting existing reports. Checking whether the
-# requested side is already occupied preserves the tree and provides a useful error
-# message. Searching both branches also makes it possible to find managers who are
-# not at the top of the organization.
-#
-# Trees are useful whenever data has a natural hierarchy. A company directory is
-# a clear example because each manager can supervise lower-level employees, and
-# each employee has a defined place in the reporting structure. Trees can also
-# represent file systems, website document structures, decision processes, and
-# category menus. Compared with a flat list, a tree makes parent-child relationships
-# explicit and can support efficient searching when its structure is designed for
-# that purpose. This implementation is a binary tree, so each employee can have
-# at most two direct reports. Although that is a project requirement rather than a
-# universal business rule, the same node-based approach can be extended to support
-# more children in a real organizational directory.
+For this assignment, I used a binary tree to represent the company’s team structure. Each employee is stored in an `EmployeeNode` object with a name and two child nodes, `left` and `right`. This allows each manager to have up to two direct reports. The `TeamTree` class manages the structure, and its `root` stores the team lead at the top.
+
+I used recursion in the `insert()` method to search for the manager by name. If the manager is found, the new employee is added to either the left or right side, depending on the user’s choice. If that side is already occupied, the program displays an error message instead of replacing the existing employee. It also lets the user know if the manager cannot be found. These checks help prevent mistakes when building the tree.
+
+The `print_tree()` method also uses recursion. It prints each employee’s name and indents the names of their reports to make the reporting relationships easier to follow. This makes the structure easier to understand than displaying everyone in a flat list.
+
+I kept the terminal menu simple so users can add the team lead, add employees, view the current structure, or exit the program. One limitation is that the tree only allows two direct reports per employee, which may not match every real company. However, this follows the requirements of the assignment and gave me practice using classes, recursion, and binary tree traversal in Python.
